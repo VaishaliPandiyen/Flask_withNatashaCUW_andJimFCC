@@ -5,6 +5,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+# __name__ is a built in variable that refers to the local python file we're working with
 
 # DB Connection
 
