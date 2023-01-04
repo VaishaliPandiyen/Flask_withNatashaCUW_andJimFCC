@@ -8,7 +8,13 @@
   </head>
   <body>
     <div id="header">
-      <a href="{{ url_for('home') }}">Home</a>&nbsp
+      <!-- this is a jinja syntax: {{ url_for ('home')}} 
+        this has to be the same as "def home()", not "app.route("/home")"-->
+      <a
+        href="{{ url_for('home')
+     }}"
+        >Home</a
+      >&nbsp
       <a href="{{ url_for('about') }}">About Me</a>
     </div>
     <div id="content">{% block content %} {% endblock %}</div>

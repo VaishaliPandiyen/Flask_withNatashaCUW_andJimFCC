@@ -18,4 +18,9 @@ def about():
 
 @app.route("/about/<username>")
 def about_withName(username):
-    return render_template('about.html', title=f'About {username}', name=f'{username}')
+    items = [
+        {1: 'alpha', 2: 'beta'},
+        {1: 'one', 2: 'two'}, 
+        {1: 'first', 2: 'second'}
+    ]
+    return render_template('about.html', title=f'About {username}', name=f'{username}', items=items)
