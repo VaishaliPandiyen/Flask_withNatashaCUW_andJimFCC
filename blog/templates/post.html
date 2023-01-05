@@ -1,0 +1,6 @@
+{% extends "layout.html" %} {% block title %} Post #{{ post.id }} by {{
+post.user.username }} {% endblock %} {% block content %}
+<img src="{{ url_for('static', filename='img/' + post.image_file) }}" style="height: 70px;">
+<p>"{{ post.title }}" &nbsp Author: {{ post.user.username }}</p>
+<p>{{ post.content }}</p>
+ {% endblock %}

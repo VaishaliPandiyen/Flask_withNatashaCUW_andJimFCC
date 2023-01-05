@@ -18,10 +18,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
 app.config['SECRET_KEY'] = '50a3b7cc91918d658cddc43d7ad46af1411a0bad2daf66c0'
 db = SQLAlchemy(app)
 
-# to create db, import:
+# to create db, tpe this in python cli:
 
-# >>> from blog import app, db
-# >>> with app.app_context():
+# from blog import app, db
+# with app.app_context():
 # ...     db.create_all()
 
 

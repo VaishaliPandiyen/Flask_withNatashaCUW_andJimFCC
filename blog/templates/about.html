@@ -1,9 +1,22 @@
-{% extends "layout.html" %} {% block title %} About {{name}} {% endblock %} {%
-block content %}
+{% extends "layout.html" %} 
+
+{% block title %} 
+About {{name}} 
+{% endblock %} 
+
+{% block content %}
 <h1>About {{name}}</h1>
 {% for item in items %}
-<div style="border: 1px solid black; display: inline-block; padding: 5px; margin: 5px">
+<div
+  style="
+    border: 1px solid black;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+  "
+>
   <p>{{ item.1 }}</p>
   <p>{{ item.2 }}</p>
 </div>
-{% endfor %} {% endblock content %}
+{% endfor %} 
+{% endblock content %}
