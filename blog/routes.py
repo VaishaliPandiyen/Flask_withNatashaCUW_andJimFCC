@@ -1,9 +1,11 @@
-from flask import render_template, url_for, request, redirect
+from flask import render_template, url_for, request, redirect, flash
 # url_for is to to avoid handling of URLs manually (e.g. if we change a root URL we would need to change all templates/web page this URL is present).
 # Look at layout page for usage
 from blog import app, db
 from blog.models import User, Post
 from blog.forms import RegistrationForm
+from blog.forms import RegistrationForm, LoginForm
+from flask_login import login_user, logout_user, current_user
 
 
 @app.route("/")
@@ -34,12 +36,40 @@ def post(post_id):
     return render_template('post.html', title=post.title, post=post)
 
 
-@app.route("/register",methods=['GET','POST'])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
-    if request.method == 'POST':
-        user = User(username=form.username.data, password=form.password.data)
+    if form.validate_on_submit():
+        user = User(username=form.username.data,
+                    password=form.hashed_password.data,email=form.email.data)
         db.session.add(user)
         db.session.commit()
+        flash('Registration successful!')
         return redirect(url_for('registered'))
-    return render_template('register.html',title='Register',form=form)
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route("/registered")
+def registered():
+    form = RegistrationForm()
+    return render_template('registered.html', title='Thanks!', form=form)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is not None and user.verify_password(form.password.data):
+            login_user(user)
+            flash('You\'ve successfully logged in,'+' '+ current_user.username +'!')
+            return redirect(url_for('home'))
+        flash('Invalid username or password.')
+    return render_template('login.html', title='Login', form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash('Logout successful. Bye!')
+    return redirect(url_for('home'))

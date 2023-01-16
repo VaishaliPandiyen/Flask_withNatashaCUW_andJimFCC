@@ -4,6 +4,8 @@ from flask import Flask
 import os
 from flask_sqlalchemy import SQLAlchemy 
 
+from flask_login import LoginManager
+
 app = Flask(__name__)
 # __name__ is a built in variable that refers to the local python file we're working with
 
@@ -18,12 +20,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
 app.config['SECRET_KEY'] = '50a3b7cc91918d658cddc43d7ad46af1411a0bad2daf66c0'
 db = SQLAlchemy(app)
 
-# to create db, tpe this in python cli:
-
-# from blog import app, db
-# with app.app_context():
-# ...     db.create_all()
-
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 # this <from blog import routes> should be HERE BELOW in the last line (or after app.config) as the order of imports in the _init_.py file is important. The last thing this script should do is import the routes.py file.
 

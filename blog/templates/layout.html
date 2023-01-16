@@ -17,6 +17,17 @@
       >&nbsp
       <a href="{{ url_for('about') }}">About Me</a>
       <a href="{{ url_for('register') }}">Register</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <div>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
     </div>
     <div id="content">{% block content %} {% endblock %}</div>
   </body>
