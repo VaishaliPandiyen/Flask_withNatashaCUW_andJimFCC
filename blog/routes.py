@@ -41,7 +41,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
-                    password=form.hashed_password.data,email=form.email.data)
+                    hashed_password=form.password.data,email=form.email.data)
         db.session.add(user)
         db.session.commit()
         flash('Registration successful!')
